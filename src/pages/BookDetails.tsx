@@ -4,7 +4,14 @@ import { Link, useParams } from 'react-router-dom';
 
 export default function BookDetails() {
   const { id } = useParams();
-  const { data: book, isLoading, error } = useSingleProductQuery(id);
+  const {
+    data: book,
+    isLoading,
+    error,
+  } = useSingleProductQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
+  });
   // console.log(product);
   console.log(isLoading);
   console.log(error);

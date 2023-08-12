@@ -3,14 +3,20 @@
 import { toast } from '@/components/ui/use-toast';
 import { usePostProductMutation } from '@/redux/features/Books/bookApi';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddBook() {
   // const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>('');
 
-  const [postProduct, { isLoading, isError }] = usePostProductMutation();
+  const [postProduct, { isLoading, isError }] = usePostProductMutation({
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
+  });
   console.log(isLoading);
   console.log(isError);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: {
     preventDefault: () => void;
@@ -41,6 +47,7 @@ export default function AddBook() {
     setInputValue('');
 
     postProduct(projects);
+    navigate('/books');
     toast({
       description: 'Book Added Successfully',
     });
