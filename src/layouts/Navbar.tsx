@@ -1,5 +1,5 @@
 import { auth } from '@/lib/firebase';
-import { setSearchBook } from '@/redux/features/products/productSlice';
+import { setSearchBook } from '@/redux/features/Books/bookSlice';
 import { setUser } from '@/redux/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { signOut } from 'firebase/auth';
@@ -47,11 +47,11 @@ export default function Navbar() {
 
           <div>
             <ul className="flex items-center">
-              {/* <li>
+              <li>
                 <Button variant="link" asChild>
                   <Link to="/">Home</Link>
                 </Button>
-              </li> */}
+              </li>
               <li>
                 <Button variant="link" asChild>
                   <Link to="/books">Books</Link>

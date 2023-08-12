@@ -1,11 +1,12 @@
 import { toast } from '@/components/ui/use-toast';
-import { useUpdateProductMutation } from '@/redux/features/products/productApi';
+import { useUpdateProductMutation } from '@/redux/features/Books/bookApi';
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function EditBook() {
-  // const [formValue, setFormValue] = useState<string>('');
+  // const user = product.find((u: { id: any }) => u.id == id);
+  // console.log(user);
 
   const [inputValue, setInputValue] = useState<string>('');
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function EditBook() {
     setInputValue('');
 
     await updateProduct(projects);
-    navigate('/');
+    navigate('/books');
     toast({
       description: 'Book Edit Successfully',
     });

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { toast } from '@/components/ui/use-toast';
-import { usePostProductMutation } from '@/redux/features/products/productApi';
+import { usePostProductMutation } from '@/redux/features/Books/bookApi';
 import { useState } from 'react';
 
-export default function Checkout() {
+export default function AddBook() {
   // const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>('');
 

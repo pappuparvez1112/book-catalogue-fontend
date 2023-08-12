@@ -1,43 +1,45 @@
 import App from '@/App';
-import Checkout from '@/pages/Checkout';
 import EditBook from '@/pages/EditBook';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
-import ProductDetails from '@/pages/ProductDetails';
-import Products from '@/pages/Products';
 import Signup from '@/pages/Signup';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
+
+import AddBook from '@/pages/AddBook';
+import BookDetails from '@/pages/BookDetails';
+import Books from '@/pages/Books';
+import Home from '@/pages/Home';
 
 const routes = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      // {
-      //   index: true,
-      //   element: <Home />,
-      // },
+      {
+        index: true,
+        element: <Home />,
+      },
       {
         index: true,
         path: '/books',
 
-        element: <Products />,
+        element: <Books />,
       },
       {
         path: '/booksNameSearch/:text',
 
-        element: <Products />,
+        element: <Books />,
       },
       {
         path: '/product-details/:id',
-        element: <ProductDetails />,
+        element: <BookDetails />,
       },
       {
         path: '/addBooks',
         element: (
           <PrivateRoute>
-            <Checkout />
+            <AddBook />
           </PrivateRoute>
         ),
       },

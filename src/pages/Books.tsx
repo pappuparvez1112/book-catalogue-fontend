@@ -1,11 +1,11 @@
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/components/BookCard';
 import {
   useGetProductsQuery,
   useSearchBookTitleQuery,
-} from '@/redux/features/products/productApi';
+} from '@/redux/features/Books/bookApi';
 
 import { useAppSelector } from '@/redux/hook';
-import { IProduct } from '@/types/globalTypes';
+import { IBook } from '@/types/globalTypes';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from '@radix-ui/react-dropdown-menu';
 
-export default function Products() {
+export default function Books() {
   const { search } = useAppSelector((state) => state.product);
   console.log(search, 'searchcheck');
   const { data: searchResult } = useSearchBookTitleQuery(search);
@@ -45,11 +45,9 @@ export default function Products() {
         {error && <h2>something went wrong</h2>}
 
         {search === ''
-          ? data?.map((product: IProduct) => <ProductCard product={product} />)
+          ? data?.map((book: IBook) => <ProductCard book={book} />)
           : searchResult?.length > 0 &&
-            searchResult?.map((product: IProduct) => (
-              <ProductCard product={product} />
-            ))}
+            searchResult?.map((book: IBook) => <ProductCard book={book} />)}
       </div>
     </div>
   );

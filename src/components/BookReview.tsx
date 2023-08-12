@@ -1,7 +1,7 @@
 import {
   useGetCommentQuery,
   usePostCommentMutation,
-} from '@/redux/features/products/productApi';
+} from '@/redux/features/Books/bookApi';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -19,7 +19,7 @@ interface IProps {
   id: string;
 }
 
-export default function ProductReview({ id }: IProps) {
+export default function BookReview({ id }: IProps) {
   const [inputValue, setInputValue] = useState<string>('');
   const { data } = useGetCommentQuery(id, {
     refetchOnMountOrArgChange: true,

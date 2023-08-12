@@ -1,8 +1,6 @@
-import banner from '@/assets/images/banner.png';
-import hero from '@/assets/images/hero.png';
+import banner from '@/assets/images/Fiction-Book-Covers.webp';
 import { Button } from '@/components/ui/button';
 import Footer from '@/layouts/Footer';
-import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
@@ -10,22 +8,22 @@ export default function Home() {
       <div className="flex justify-between items-center h-[calc(100vh-80px)] max-w-7xl mx-auto ">
         <div>
           <h1 className="text-6xl font-black text-primary mb-2">
-            HAYLOU <br /> SOLAR PLUSE
+            BOOK <br /> CATALOGUE
           </h1>
           <p className="text-secondary font-semibold text-xl">
-            Effortless communication at your fingertips
+            Lorem ipsum dolor sit amet consectetur,
           </p>
           <div className="text-primary mt-20">
-            <p>Bluetooth 5.2 for easy, secure communication</p>
-            <p>Precise 143 Amoled display for clear visuals</p>
+            <p>Lorem ipsum dolor sit amet consectetur,</p>
+            <p>Lorem ipsum dolor sit amet consectetur,</p>
           </div>
-          <Button className="mt-5">Learn more</Button>
+          <Button className="mt-5">Explore more</Button>
         </div>
         <div className="relative -right-14">
           <img src={banner} alt="" />
         </div>
       </div>
-      <div className="mb-96">
+      {/* <div className="mb-96">
         <div>
           <img className="mx-auto" src={hero} alt="" />
         </div>
@@ -37,7 +35,7 @@ export default function Home() {
             <Link to="/books">Brows all products</Link>
           </Button>
         </div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );

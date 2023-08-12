@@ -1,15 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface IProduct {
-  product: [];
+interface IBook {
   search: string | null;
 }
-const initialState: IProduct = {
-  product: [],
+const initialState: IBook = {
   search: '',
 };
-const productSlice = createSlice({
-  name: 'product',
+const bookSlice = createSlice({
+  name: 'Book',
   initialState,
   reducers: {
     setSearchBook: (state, action: PayloadAction<string | null>) => {
@@ -20,5 +18,5 @@ const productSlice = createSlice({
     },
   },
 });
-export const { setSearchBook, clearSearchBook } = productSlice.actions;
-export default productSlice.reducer;
+export const { setSearchBook, clearSearchBook } = bookSlice.actions;
+export default bookSlice.reducer;
