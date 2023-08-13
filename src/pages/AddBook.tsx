@@ -9,14 +9,16 @@ export default function AddBook() {
   // const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>('');
 
-  const [postProduct, { isLoading, isError }] = usePostProductMutation({
-    refetchOnMountOrArgChange: true,
-    pollingInterval: 30000,
-  });
+  const [postProduct, { isLoading, isError }] = usePostProductMutation();
   console.log(isLoading);
   console.log(isError);
 
   const navigate = useNavigate();
+
+  const onInputChange = (event: any) => {
+    console.log(event.target.files[0]);
+    setInputValue(event.target.files[0]);
+  };
 
   const handleSubmit = async (event: {
     preventDefault: () => void;
@@ -27,22 +29,24 @@ export default function AddBook() {
     event.preventDefault();
 
     const form = event.target;
+    const BookImage = form.BookImage.value;
     const BookTitle = form.BookTitle.value;
     const AuthorName = form.AuthorName.value;
     const Genre = form.Genre.value;
     const publicationYear = form.publicationYear.value;
 
     const projects = {
+      BookImage,
       BookTitle,
       AuthorName,
       Genre,
       publicationYear,
     };
     console.log(projects);
-    // const options = {
-    //   data: { projects: inputValue },
-    // };
-    // console.log(options);
+    const options = {
+      data: { projects: inputValue },
+    };
+    console.log(options);
     form.reset();
     setInputValue('');
 
@@ -81,6 +85,23 @@ export default function AddBook() {
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl font-bold mb-4"> Submit Books Details</h2>
+
+      <div className="mb-4">
+        <label
+          htmlFor="BookImage"
+          className="block mb-2 text-sm font-bold text-gray-700"
+        >
+          BookImage:
+        </label>
+        <input
+          type="file"
+          name="BookImage"
+          id="BookImage"
+          accept="image/*"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+          onChange={onInputChange}
+        />
+      </div>
 
       <div className="mb-4">
         <label

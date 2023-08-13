@@ -1,4 +1,4 @@
-import ProductCard from '@/components/BookCard';
+import BookCard from '@/components/BookCard';
 import {
   useGetProductsQuery,
   useSearchBookTitleQuery,
@@ -45,9 +45,9 @@ export default function Books() {
         {error && <h2>something went wrong</h2>}
 
         {search === ''
-          ? data?.map((book: IBook) => <ProductCard book={book} />)
+          ? data?.map((book: IBook) => <BookCard book={book} />)
           : searchResult?.length > 0 &&
-            searchResult?.map((book: IBook) => <ProductCard book={book} />)}
+            searchResult?.map((book: IBook) => <BookCard book={book} />)}
       </div>
     </div>
   );

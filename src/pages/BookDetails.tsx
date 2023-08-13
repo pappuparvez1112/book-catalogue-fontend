@@ -20,6 +20,7 @@ export default function BookDetails() {
     <>
       <div className="flex max-w-4xl items-center mx-auto items-top  m-2 justify-centerrounded-2xl h-480px] flex flex-col items-start justify-between p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-2">
         <div className="w-[50%] space-y-5 ">
+          <img src={book?.BookImage} alt="" />
           <h1 className="text-3xl font-semibold">{book?.BookTitle}</h1>
           <p className="text-xl">Author: {book?.AuthorName}</p>
           <p className="text-xl">Genre: {book?.Genre}</p>
