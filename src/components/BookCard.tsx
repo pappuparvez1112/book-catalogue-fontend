@@ -9,7 +9,6 @@ interface IProps {
 export default function BookCard({ book }: IProps) {
   return (
     <div>
-      {/* <Link to={`/product-details/${product._id}`}> */}
       <div className="rounded-2xl h-480px] flex flex-col items-start justify-between p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-2">
         <div className=" md:p-4 text-center md:text-left space-y-2">
           <img src={book?.BookImage} alt="" />
@@ -23,7 +22,6 @@ export default function BookCard({ book }: IProps) {
           </Link>
         </div>
       </div>
-      {/* </Link> */}
     </div>
   );
 }

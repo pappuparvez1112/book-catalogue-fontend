@@ -8,13 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 
-// const dummyComments = [
-//   'Bhalo na',
-//   'Ki shob ghori egula??',
-//   'Eta kono product holo ??',
-//   '200 taka dibo, hobe ??',
-// ];
-
 interface IProps {
   id: string;
 }

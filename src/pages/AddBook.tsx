@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddBook() {
-  // const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>('');
 
   const [postProduct, { isLoading, isError }] = usePostProductMutation();
@@ -43,10 +42,7 @@ export default function AddBook() {
       publicationYear,
     };
     console.log(projects);
-    const options = {
-      data: { projects: inputValue },
-    };
-    console.log(options);
+
     form.reset();
     setInputValue('');
 

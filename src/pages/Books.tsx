@@ -15,7 +15,7 @@ import {
 } from '@radix-ui/react-dropdown-menu';
 
 export default function Books() {
-  const { search } = useAppSelector((state) => state.product);
+  const { search } = useAppSelector((state: { product: any }) => state.product);
   console.log(search, 'searchcheck');
   const { data: searchResult } = useSearchBookTitleQuery(search);
 

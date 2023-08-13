@@ -1,25 +1,39 @@
 import { toast } from '@/components/ui/use-toast';
-import { useUpdateProductMutation } from '@/redux/features/Books/bookApi';
+import {
+  useSingleProductQuery,
+  useUpdateProductMutation,
+} from '@/redux/features/Books/bookApi';
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+interface IProps {
+  id: string;
+}
 export default function EditBook() {
-  // const user = product.find((u: { id: any }) => u.id == id);
-  // console.log(user);
+  const { id } = useParams();
 
   const [inputValue, setInputValue] = useState<string>('');
+  const {
+    data: Book,
+    isLoading: bookLoading,
+    error: bookerror,
+  } = useSingleProductQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 10000,
+  });
+
+  console.log(bookLoading);
+  console.log(bookerror);
   const navigate = useNavigate();
 
   const [updateProduct, { isLoading, error }] = useUpdateProductMutation();
   console.log(isLoading);
+  console.log(error);
 
-  const handleUpdateSubmit = async (event: {
+  const handleUpdateSubmit = (event: {
     preventDefault: () => void;
     target: any;
   }) => {
-    console.log(handleUpdateSubmit);
-
     event.preventDefault();
 
     const form = event.target;
@@ -27,23 +41,33 @@ export default function EditBook() {
     const AuthorName = form.AuthorName.value;
     const Genre = form.Genre.value;
     const publicationYear = form.publicationYear.value;
-
-    const projects = {
-      BookTitle,
-      AuthorName,
-      Genre,
-      publicationYear,
+    const options = {
+      id: id,
+      data: {
+        BookTitle,
+        AuthorName,
+        Genre,
+        publicationYear,
+        form: inputValue,
+      },
     };
+    console.log(options);
 
     form.reset();
-    setInputValue('');
 
-    await updateProduct(projects);
+    setInputValue(event.target.value);
+
+    updateProduct(options);
     navigate('/books');
     toast({
       description: 'Book Edit Successfully',
     });
   };
+  // const handleChange = (event: {
+  //   target: { value: SetStateAction<string> };
+  // }) => {
+  //   setInputValue(event.target.value);
+  // };
 
   return (
     <form
@@ -62,9 +86,10 @@ export default function EditBook() {
         <input
           type="text"
           id="BookTitle"
-          name="BookTitle"
+          name={Book?.BookTitle}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           required
+          defaultValue={Book?.BookTitle}
         />
       </div>
 
@@ -81,6 +106,7 @@ export default function EditBook() {
           name="AuthorName"
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           required
+          defaultValue={Book?.AuthorName}
         />
       </div>
 
@@ -98,6 +124,7 @@ export default function EditBook() {
           name="Genre"
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           required
+          defaultValue={Book?.Genre}
         />
       </div>
 
@@ -114,6 +141,7 @@ export default function EditBook() {
           name="publicationYear"
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           required
+          defaultValue={Book?.publicationYear}
         />
       </div>
 
