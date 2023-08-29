@@ -1,8 +1,13 @@
 import BookReview from '@/components/BookReview';
-import { useSingleProductQuery } from '@/redux/features/Books/bookApi';
-import { Link, useParams } from 'react-router-dom';
+import { toast } from '@/components/ui/use-toast';
+import {
+  useDeleteProductMutation,
+  useSingleProductQuery,
+} from '@/redux/features/Books/bookApi';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function BookDetails() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const {
     data: book,
@@ -12,9 +17,24 @@ export default function BookDetails() {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });
-  // console.log(product);
-  console.log(isLoading);
-  console.log(error);
+
+  const [deleteProduct, { isLoading: deleteLoading, error: deleteError }] =
+    useDeleteProductMutation();
+
+  console.log(deleteLoading);
+  console.log(deleteError);
+
+  const handleDelete = async () => {
+    try {
+      await deleteProduct(id); // Delete the book using the delete mutation
+      navigate('/books');
+      toast({
+        description: 'Book Deleted Successfully',
+      });
+    } catch (error) {
+      console.error('Error deleting book:', error);
+    }
+  };
 
   return (
     <>
@@ -32,10 +52,13 @@ export default function BookDetails() {
               <button className="px-4 py-2 me-5 text-white bg-blue-950 rounded hover:bg-blue-600">
                 Edit
               </button>
-              <button className="px-4 py-2 text-white bg-blue-950 rounded hover:bg-blue-600">
-                Delete
-              </button>
             </Link>
+            <button
+              onClick={handleDelete}
+              className="px-4 py-2 text-white bg-blue-950 rounded hover:bg-blue-600"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>

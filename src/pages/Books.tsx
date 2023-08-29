@@ -15,11 +15,13 @@ import {
 } from '@radix-ui/react-dropdown-menu';
 
 export default function Books() {
-  const { search } = useAppSelector((state: { product: any }) => state.product);
+  const { search, products } = useAppSelector(
+    (state: { product: any }) => state.product
+  );
   console.log(search, 'searchcheck');
   const { data: searchResult } = useSearchBookTitleQuery(search);
 
-  const { data, isLoading, error } = useGetProductsQuery({});
+  const { data, isLoading, error } = useGetProductsQuery({ products });
 
   return (
     <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">

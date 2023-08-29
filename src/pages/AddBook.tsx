@@ -2,8 +2,19 @@
 
 import { toast } from '@/components/ui/use-toast';
 import { usePostProductMutation } from '@/redux/features/Books/bookApi';
+import { addToCart } from '@/redux/features/Books/bookSlice';
+import { useAppDispatch } from '@/redux/hook';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Books from './Books';
+
+type Books = {
+  BookImage: string;
+  BookTitle: string;
+  AuthorName: string;
+  Genre: string;
+  publicationYear: string;
+};
 
 export default function AddBook() {
   const [inputValue, setInputValue] = useState<string>('');
@@ -11,8 +22,10 @@ export default function AddBook() {
   const [postProduct, { isLoading, isError }] = usePostProductMutation();
   console.log(isLoading);
   console.log(isError);
+  console.log(postProduct);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onInputChange = (event: any) => {
     console.log(event.target.files[0]);
@@ -47,6 +60,9 @@ export default function AddBook() {
     setInputValue('');
 
     postProduct(projects);
+
+    dispatch(addToCart(projects));
+
     navigate('/books');
     toast({
       description: 'Book Added Successfully',
