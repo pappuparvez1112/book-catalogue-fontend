@@ -4,10 +4,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 interface IBooks {
   products: IBook[];
   search: string | null;
+  filter: IBook[];
 }
 const initialState: IBooks = {
   search: '',
   products: [],
+  filter: [],
 };
 const bookSlice = createSlice({
   name: 'Book',
@@ -35,8 +37,16 @@ const bookSlice = createSlice({
     clearSearchBook: (state) => {
       state.search = '';
     },
+    setFilterProduct: (state, action: PayloadAction<IBook[]>) => {
+      state.filter = action.payload;
+    },
   },
 });
-export const { setSearchBook, clearSearchBook, addToCart, removeFromCart } =
-  bookSlice.actions;
+export const {
+  setSearchBook,
+  clearSearchBook,
+  addToCart,
+  removeFromCart,
+  setFilterProduct,
+} = bookSlice.actions;
 export default bookSlice.reducer;

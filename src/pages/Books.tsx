@@ -1,21 +1,20 @@
 import BookCard from '@/components/BookCard';
+import Dropdown from '@/components/ui/dropdown';
+
 import {
   useGetProductsQuery,
   useSearchBookTitleQuery,
 } from '@/redux/features/Books/bookApi';
+import { setFilterProduct } from '@/redux/features/Books/bookSlice';
 
 import { useAppSelector } from '@/redux/hook';
 import { IBook } from '@/types/globalTypes';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Books() {
-  const { search, products } = useAppSelector(
+  const dispatch = useDispatch();
+  const { search, products, filter } = useAppSelector(
     (state: { product: any }) => state.product
   );
   console.log(search, 'searchcheck');
@@ -23,33 +22,52 @@ export default function Books() {
 
   const { data, isLoading, error } = useGetProductsQuery({ products });
 
+  const handleClick = () => {
+    dispatch(setFilterProduct(filter));
+  };
+
+  let productsData;
+
+  if (filter) {
+    productsData = data?.filter(
+      (filter: any) => filter.Genre === true && filter.publicationYear === true
+    );
+  } else {
+    productsData = data;
+  }
   return (
-    <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">
-      <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start sticky top-16 h-[calc(100vh-80px)]">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="border-cyan-300">
-            Filter
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              Genre
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              Publication Year
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+    <div className="grid grid-cols-12 max-w-7xl pt-6 mx-auto relative ">
+      <div className="col-span-2 ">
+        <Dropdown buttonText="Filter Catagories">
+          <Link
+            to="/books"
+            className="block px-4 py-2 text-sm text-gray-900 hover:bg-orange-300"
+          >
+            Genre
+          </Link>
+          <Link
+            to="/books"
+            className="block px-4  py-2 text-sm  text-gray-900 hover:bg-orange-300"
+          >
+            PublicationYear
+          </Link>
+        </Dropdown>
       </div>
 
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
         {isLoading && <h2>...loading</h2>}
         {error && <h2>something went wrong</h2>}
 
-        {search === ''
-          ? data?.map((book: IBook) => <BookCard book={book} />)
-          : searchResult?.length > 0 &&
-            searchResult?.map((book: IBook) => <BookCard book={book} />)}
+        {
+          filter === true
+            ? productsData.map((book: IBook) => <BookCard book={book} />)
+            : search === ''
+            ? data?.map((book: IBook) => <BookCard book={book} />)
+            : searchResult?.length > 0 &&
+              searchResult?.map((book: IBook) => <BookCard book={book} />)
+          //  &&
+          // productsData?.map((book: IBook) => <BookCard book={book} />)
+        }
       </div>
     </div>
   );
