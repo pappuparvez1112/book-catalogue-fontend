@@ -1,6 +1,7 @@
 import banner from '@/assets/images/Fiction-Book-Covers.webp';
 import { Button } from '@/components/ui/button';
 import Footer from '@/layouts/Footer';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
@@ -10,14 +11,16 @@ export default function Home() {
           <h1 className="text-6xl font-black text-primary mb-2 ">
             BOOK <br /> CATALOGUE
           </h1>
-          <p className="text-secondary font-semibold text-xl text-black">
+          <p className="text-secondary font-semibold text-xl text-white">
             Lorem ipsum dolor sit amet consectetur,
           </p>
           <div className="text-primary mt-20">
             <p>Lorem ipsum dolor sit amet consectetur,</p>
             <p>Lorem ipsum dolor sit amet consectetur,</p>
           </div>
-          <Button className="mt-5 hover:bg-orange-700">Explore more</Button>
+          <Button className="mt-5 hover:bg-orange-700">
+            <Link to="/books">Brows all Books from here</Link>
+          </Button>
         </div>
         <div className="relative -right-14 me-14 pe-24 pt-14">
           <img src={banner} alt="" />
