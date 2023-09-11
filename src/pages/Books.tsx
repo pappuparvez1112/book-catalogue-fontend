@@ -10,9 +10,12 @@ import { setFilterProduct } from '@/redux/features/Books/bookSlice';
 import { useAppSelector } from '@/redux/hook';
 import { IBook } from '@/types/globalTypes';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 export default function Books() {
+  // const [items, setItems] = useState([]);
+  // console.log(items, 'data');
+  // const [filterData, setFilterData] = useState([]);
+  // console.log(filterData);
   const dispatch = useDispatch();
   const { search, products, filter } = useAppSelector(
     (state: { product: any }) => state.product
@@ -21,53 +24,69 @@ export default function Books() {
   const { data: searchResult } = useSearchBookTitleQuery(search);
 
   const { data, isLoading, error } = useGetProductsQuery({ products });
+  // console.log(data);
 
   const handleClick = () => {
     dispatch(setFilterProduct(filter));
   };
 
   let productsData;
+  console.log(productsData);
 
   if (filter) {
     productsData = data?.filter(
-      (filter: any) => filter.Genre === true && filter.publicationYear === true
+      (filter: any) => filter.Genre.trim() === 'Design'
     );
   } else {
     productsData = data;
   }
+
+  // const filterItem = (genreItem: string) => {
+  //   const updateItems = data.filter((curElem: any) => {
+  //     // console.log(genreItem, curElem);
+  //     return curElem.Genre.trim() === genreItem;
+  //   });
+  //   // console.log(updateItems, data, 'data check');
+  //   setItems(updateItems);
+  // };
+
   return (
-    <div className="grid grid-cols-12 max-w-7xl pt-6 mx-auto relative ">
-      <div className="col-span-2 ">
-        <Dropdown buttonText="Filter Catagories">
-          <Link
-            to="/books"
-            className="block px-4 py-2 text-sm text-gray-900 hover:bg-orange-300"
+    <div className="grid grid-cols-10 ms-32 pt-6 relative ">
+      <div className="col-span-2 flex">
+        <Dropdown buttonText="Genre">
+          <option
+            onClick={() => handleClick}
+            className="  py-2 text-sm text-gray-900 hover:bg-orange-300"
           >
-            Genre
-          </Link>
-          <Link
-            to="/books"
-            className="block px-4  py-2 text-sm  text-gray-900 hover:bg-orange-300"
-          >
-            PublicationYear
-          </Link>
+            Design
+          </option>
+          <option className="  py-2 text-sm text-gray-900 hover:bg-orange-300">
+            ui/ux
+          </option>
         </Dropdown>
+        <div className="">
+          <Dropdown buttonText="PublicationYear">
+            <option className="  py-2 text-sm text-gray-900 hover:bg-orange-300">
+              2020
+            </option>
+            <option className=" py-2 text-sm  text-gray-900 hover:bg-orange-300">
+              2023
+            </option>
+          </Dropdown>
+        </div>
       </div>
 
-      <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
+      <div className="col-span-8 grid grid-cols-4 gap-10 pb-20">
         {isLoading && <h2>...loading</h2>}
         {error && <h2>something went wrong</h2>}
+        {/* {filterData
+          ? data?.map((book: IBook) => <BookCard book={book} />)
+          : items?.map((book) => <BookCard book={book} />)} */}
 
-        {
-          filter === true
-            ? productsData.map((book: IBook) => <BookCard book={book} />)
-            : search === ''
-            ? data?.map((book: IBook) => <BookCard book={book} />)
-            : searchResult?.length > 0 &&
-              searchResult?.map((book: IBook) => <BookCard book={book} />)
-          //  &&
-          // productsData?.map((book: IBook) => <BookCard book={book} />)
-        }
+        {search === ''
+          ? data?.map((book: IBook) => <BookCard book={book} />)
+          : searchResult?.length > 0 &&
+            searchResult?.map((book: IBook) => <BookCard book={book} />)}
       </div>
     </div>
   );
