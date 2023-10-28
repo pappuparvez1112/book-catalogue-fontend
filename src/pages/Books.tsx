@@ -1,5 +1,4 @@
 import BookCard from '@/components/BookCard';
-import Dropdown from '@/components/ui/dropdown';
 
 import {
   useGetProductsQuery,
@@ -51,8 +50,8 @@ export default function Books() {
   // };
 
   return (
-    <div className="grid grid-cols-10 ms-32 pt-6 relative ">
-      <div className="col-span-2 flex">
+    <div className="grid grid-cols-8 grid-rows-3 ms-28 pt-6 relative ">
+      {/* <div className="col-span-2 flex">
         <Dropdown buttonText="Genre">
           <option
             onClick={() => handleClick}
@@ -74,9 +73,9 @@ export default function Books() {
             </option>
           </Dropdown>
         </div>
-      </div>
+      </div> */}
 
-      <div className="col-span-8 grid grid-cols-4 gap-10 pb-20">
+      <div className="col-span-7 grid grid-cols-3 grid-rows-3 gap-20 pb-20">
         {isLoading && <h2>...loading</h2>}
         {error && <h2>something went wrong</h2>}
         {/* {filterData

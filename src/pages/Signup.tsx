@@ -1,7 +1,6 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/technet-logo-white.png';
 import { SignupForm } from '../components/SignUpForm';
 
 export default function Signup() {
@@ -26,7 +25,7 @@ export default function Signup() {
             }}
           />
           <div className="relative z-20 flex items-center text-lg font-medium">
-            <img className="h-8" src={logo} alt="" />
+            {/* <img className="h-8" src={logo} alt="" /> */}
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2"></blockquote>

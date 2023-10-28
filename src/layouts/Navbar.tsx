@@ -4,8 +4,10 @@ import { setUser } from '@/redux/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { signOut } from 'firebase/auth';
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import logo from '../assets/images/images.png';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import logo from '../assets/images/dd64da585bc57cb05e5fd4d8ce873f57.png';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Button } from '../components/ui/button';
 import {
@@ -18,6 +20,7 @@ import {
 } from '../components/ui/dropdown-menu';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const { text } = useParams();
   const { user } = useAppSelector((state) => state.user);
 
@@ -35,6 +38,17 @@ export default function Navbar() {
     signOut(auth).then(() => {
       // Sign-out successful.
       dispatch(setUser(null));
+      navigate('/');
+      toast.success('🦄User Logged Out Successfully!', {
+        position: 'top-right',
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     });
   };
   return (
@@ -42,7 +56,7 @@ export default function Navbar() {
       <div className="h-full w-full bg-white/60">
         <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
           <div>
-            <img className="h-14 w-30" src={logo} alt="log" />
+            <img className="h-14 w-50" src={logo} alt="log" />
           </div>
 
           <div>
@@ -124,6 +138,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </nav>
   );
 }

@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -39,6 +41,18 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
     console.log(data);
 
     dispatch(loginUser({ email: data.email, password: data.password }));
+
+    toast.success('🦄User Logged in Successfully!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+    navigate('/');
   };
 
   useEffect(() => {
@@ -68,7 +82,7 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
             {errors.email && <p>{errors.email.message}</p>}
             <Input
               id="password"
-              placeholder="your password"
+              placeholder="Password should be 6 character"
               type="password"
               autoCapitalize="none"
               autoComplete="password"
@@ -97,6 +111,7 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
         <p>Google</p>
         <FcGoogle />
       </Button>
+      <ToastContainer />
     </div>
   );
 }

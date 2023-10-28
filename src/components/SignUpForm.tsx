@@ -8,6 +8,9 @@ import { createUser } from '@/redux/features/user/userSlice';
 import { useAppDispatch } from '@/redux/hook';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -16,6 +19,7 @@ interface SignupFormInput {
   password: string;
 }
 export function SignupForm({ className, ...props }: UserAuthFormProps) {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -26,7 +30,19 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
 
   const onSubmit = (data: SignupFormInput) => {
     console.log(data);
+
     dispatch(createUser({ email: data.email, password: data.password }));
+    navigate('/login');
+    toast.success('🦄User Created Successfully!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
   };
 
   return (
@@ -49,7 +65,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
             {errors.email && <p>{errors.email.message}</p>}
             <Input
               id="password"
-              placeholder="your password"
+              placeholder="Password Should be 6 character"
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
@@ -85,6 +101,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
         <p>Google</p>
         <FcGoogle />
       </Button>
+      <ToastContainer />
     </div>
   );
 }

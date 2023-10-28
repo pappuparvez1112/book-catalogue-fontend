@@ -34,8 +34,24 @@ export default function AddBook() {
 
   const handleSubmit = async (event: {
     preventDefault: () => void;
+
     target: any;
   }) => {
+    // const data = new FormData();
+    // data.append('file', image);
+    // data.append('upload_preset', 'ybyzrwho');
+    // data.append('cloud_name', 'do1k5qzyn');
+    // fetch('https://api.cloudinary.com/v1_1/do1k5qzyn/image/upload', {
+    //   method: 'POST',
+    //   body: data,
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     console.log(handleSubmit);
 
     event.preventDefault();
