@@ -4,7 +4,6 @@ import {
   useGetProductsQuery,
   useSearchBookTitleQuery,
 } from '@/redux/features/Books/bookApi';
-import { setFilterProduct } from '@/redux/features/Books/bookSlice';
 
 import { useAppSelector } from '@/redux/hook';
 import { IBook } from '@/types/globalTypes';
@@ -16,7 +15,7 @@ export default function Books() {
   // const [filterData, setFilterData] = useState([]);
   // console.log(filterData);
   const dispatch = useDispatch();
-  const { search, products, filter } = useAppSelector(
+  const { search, products } = useAppSelector(
     (state: { product: any }) => state.product
   );
   console.log(search, 'searchcheck');
@@ -25,20 +24,20 @@ export default function Books() {
   const { data, isLoading, error } = useGetProductsQuery({ products });
   // console.log(data);
 
-  const handleClick = () => {
-    dispatch(setFilterProduct(filter));
-  };
+  // const handleClick = () => {
+  //   dispatch(setFilterProduct(filter));
+  // };
 
-  let productsData;
-  console.log(productsData);
+  // let productsData;
+  // console.log(productsData);
 
-  if (filter) {
-    productsData = data?.filter(
-      (filter: any) => filter.Genre.trim() === 'Design'
-    );
-  } else {
-    productsData = data;
-  }
+  // if (filter) {
+  //   productsData = data?.filter(
+  //     (filter: any) => filter.Genre.trim() === 'Design'
+  //   );
+  // } else {
+  //   productsData = data;
+  // }
 
   // const filterItem = (genreItem: string) => {
   //   const updateItems = data.filter((curElem: any) => {
@@ -83,9 +82,11 @@ export default function Books() {
           : items?.map((book) => <BookCard book={book} />)} */}
 
         {search === ''
-          ? data?.map((book: IBook) => <BookCard book={book} />)
+          ? data?.map((book: IBook) => <BookCard key={book?._id} book={book} />)
           : searchResult?.length > 0 &&
-            searchResult?.map((book: IBook) => <BookCard book={book} />)}
+            searchResult?.map((book: IBook) => (
+              <BookCard key={book?._id} book={book} />
+            ))}
       </div>
     </div>
   );

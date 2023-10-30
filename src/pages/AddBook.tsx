@@ -6,17 +6,11 @@ import { addToCart } from '@/redux/features/Books/bookSlice';
 import { useAppDispatch } from '@/redux/hook';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Books from './Books';
 
-type Books = {
-  BookImage: string;
-  BookTitle: string;
-  AuthorName: string;
-  Genre: string;
-  publicationYear: string;
-};
+const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 
 export default function AddBook() {
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
   const [inputValue, setInputValue] = useState<string>('');
 
   const [postProduct, { isLoading, isError }] = usePostProductMutation();
@@ -27,9 +21,32 @@ export default function AddBook() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onInputChange = (event: any) => {
+  const onInputChange = async (event: any) => {
     console.log(event.target.files[0]);
-    setInputValue(event.target.files[0]);
+    // setInputValue(event.target.files[0]);
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    console.log(formData);
+    try {
+      const response = await fetch(img_hosting_url, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setInputValue(data.data.display_url);
+        console.log(setInputValue);
+        // data.data.display_url;
+      } else {
+        throw new Error('Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Error in uploadImgBB:', error);
+      throw error;
+    }
   };
 
   const handleSubmit = async (event: {
@@ -37,27 +54,10 @@ export default function AddBook() {
 
     target: any;
   }) => {
-    // const data = new FormData();
-    // data.append('file', image);
-    // data.append('upload_preset', 'ybyzrwho');
-    // data.append('cloud_name', 'do1k5qzyn');
-    // fetch('https://api.cloudinary.com/v1_1/do1k5qzyn/image/upload', {
-    //   method: 'POST',
-    //   body: data,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    console.log(handleSubmit);
-
     event.preventDefault();
 
     const form = event.target;
-    const BookImage = form.BookImage.value;
+    const BookImage = inputValue;
     const BookTitle = form.BookTitle.value;
     const AuthorName = form.AuthorName.value;
     const Genre = form.Genre.value;
@@ -72,40 +72,19 @@ export default function AddBook() {
     };
     console.log(projects);
 
-    form.reset();
-    setInputValue('');
-
-    postProduct(projects);
+    await postProduct(projects);
 
     dispatch(addToCart(projects));
+    form.reset();
+    setInputValue('');
 
     navigate('/books');
     toast({
       description: 'Book Added Successfully',
     });
-
-    // setInputValue('');
-    // fetch('http://localhost:5000/books', {
-    //   method: 'POST',
-    //   headers: {
-    //     'content-type': 'application/json',
-    //   },
-    //   body: JSON.stringify(projects),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.insertedId) {
-    //       alert('added this projects successfully');
-    //     }
-    //   });
   };
 
-  // const handleChange = (event: {
-  //   target: { value: SetStateAction<string> };
-  // }) => {
-  //   setInputValue(event.target.value);
-  // };
+  console.log(img_hosting_token);
 
   return (
     <form
