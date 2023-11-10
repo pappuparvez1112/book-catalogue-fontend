@@ -6,4 +6,5 @@ export interface IBook {
   Genre: string;
   publicationYear: number;
   quantity?: number;
+  description: string;
 }

@@ -62,6 +62,7 @@ export default function AddBook() {
     const AuthorName = form.AuthorName.value;
     const Genre = form.Genre.value;
     const publicationYear = form.publicationYear.value;
+    const description = form.description.value;
 
     const projects = {
       BookImage,
@@ -69,6 +70,7 @@ export default function AddBook() {
       AuthorName,
       Genre,
       publicationYear,
+      description,
     };
     console.log(projects);
 
@@ -173,6 +175,20 @@ export default function AddBook() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           required
         />
+      </div>
+      <div className="mb-4">
+        <label
+          htmlFor="description"
+          className="block mb-2 text-sm font-bold text-gray-700"
+        >
+          Description:
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+          required
+        ></textarea>
       </div>
 
       <div>

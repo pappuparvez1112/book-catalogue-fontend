@@ -8,6 +8,8 @@ import {
 interface IUser {
   user: {
     email: string | null;
+    name: string | null;
+    contactNo: string | null;
   };
   isLoading: boolean;
   isError: boolean;
@@ -16,6 +18,8 @@ interface IUser {
 const initialState: IUser = {
   user: {
     email: null,
+    name: null,
+    contactNo: null,
   },
   isLoading: false,
   isError: false,
@@ -42,6 +46,8 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user.email = action.payload;
+      state.user.name = action.payload;
+      state.user.contactNo = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;

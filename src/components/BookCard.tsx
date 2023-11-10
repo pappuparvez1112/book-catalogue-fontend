@@ -17,6 +17,7 @@ export default function BookCard({ book }: IProps) {
           <p>Author: {book?.AuthorName}</p>
           <p className="text-sm">Genre: {book?.Genre}</p>
           <p className="text-sm">publicationYear: {book?.publicationYear}</p>
+          <p className="text-sm">Description:{book?.description}</p>
           <Link to={`/product-details/${book._id}`} className="w-full">
             <Button variant="default">Book Details</Button>
           </Link>

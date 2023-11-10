@@ -22,7 +22,7 @@ export default function Books() {
   const { data: searchResult } = useSearchBookTitleQuery(search);
 
   const { data, isLoading, error } = useGetProductsQuery({ products });
-  // console.log(data);
+  console.log(data);
 
   // const handleClick = () => {
   //   dispatch(setFilterProduct(filter));

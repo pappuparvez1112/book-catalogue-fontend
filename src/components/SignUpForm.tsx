@@ -17,6 +17,8 @@ type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 interface SignupFormInput {
   email: string;
   password: string;
+  name: string;
+  contactNo: string;
 }
 export function SignupForm({ className, ...props }: UserAuthFormProps) {
   const navigate = useNavigate();
@@ -62,7 +64,9 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
               autoCorrect="off"
               {...register('email', { required: 'Email is required' })}
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
             <Input
               id="password"
               placeholder="Password Should be 6 character"
@@ -71,7 +75,9 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
               autoCorrect="off"
               {...register('password', { required: 'Password is required' })}
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
             <Input
               id="password"
               placeholder="confirm password"
@@ -79,7 +85,33 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
               autoCapitalize="none"
               autoCorrect="off"
             />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
+            <Input
+              id="name"
+              placeholder="Your user name"
+              type="name"
+              autoCapitalize="none"
+              autoCorrect="off"
+              {...register('name', { required: 'Username is required' })}
+            />
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
+            )}
+            <Input
+              id="contactNo"
+              placeholder="Your ContactNo"
+              type="text"
+              autoCapitalize="none"
+              autoCorrect="off"
+              {...register('contactNo', { required: 'Contactno is required' })}
+            />
+            {errors.contactNo && (
+              <p className="text-red-500">{errors.contactNo.message}</p>
+            )}
           </div>
+
           <Button>Create Account</Button>
         </div>
       </form>

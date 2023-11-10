@@ -22,6 +22,7 @@ import {
 export default function Navbar() {
   const navigate = useNavigate();
   const { text } = useParams();
+
   const { user } = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
@@ -95,6 +96,7 @@ export default function Navbar() {
               {/* <li>
                 <Cart />
               </li> */}
+              <h2>{user.name}</h2>
               <li className="ml-5">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
