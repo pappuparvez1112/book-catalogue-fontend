@@ -55,88 +55,126 @@ export default function Navbar() {
   return (
     <nav className="w-full h-16 fixed top backdrop-blur-lg z-10">
       <div className="h-full w-full bg-white/60">
-        <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
+        <div className="flex items-center justify-center w-full md:max-w-7xl h-full mx-auto">
           <div>
-            <img className="h-14 w-50" src={logo} alt="log" />
+            <Link to="/">
+              <img className="h-14 w-50" src={logo} alt="log" />
+            </Link>
           </div>
 
-          <div>
-            <ul className="flex items-center">
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/">Home</Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/books">Books</Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/addBooks">Add Books</Link>
-                </Button>
-              </li>
-              <li>
-                <Link to={`/booksNameSearch/${text}`}>
-                  <div className="form-control">
-                    <form onSubmit={handleSubmit}>
-                      <input
-                        type="search"
-                        name="search"
-                        placeholder="Search"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        className="input input-bordered w-24 md:w-auto"
-                      />
-                    </form>
-                  </div>
-                </Link>
-              </li>
-              {/* <li>
-                <Cart />
-              </li> */}
-              <h2>{user.name}</h2>
-              <li className="ml-5">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    <Avatar>
-                      <AvatarImage src="https://live.staticflickr.com/65535/53108000721_0fd1a3e64d_s.jpg" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
-                      Profile
-                    </DropdownMenuItem>
-                    {!user.email && (
-                      <>
-                        <Link to="/login">
-                          <DropdownMenuItem className="cursor-pointer">
-                            Login
-                          </DropdownMenuItem>
-                        </Link>
-                        <Link to="/signup">
-                          <DropdownMenuItem className="cursor-pointer">
-                            Sign up
-                          </DropdownMenuItem>
-                        </Link>
-                      </>
-                    )}
-                    {user.email && (
-                      <DropdownMenuItem
-                        onClick={handleLogout}
-                        className="cursor-pointer"
-                      >
-                        Logout
+          <div className="hidden md:flex items-center space-x-4">
+            <Button variant="link" asChild>
+              <Link to="/">Home</Link>
+            </Button>
+            <Button variant="link" asChild>
+              <Link to="/books">Books</Link>
+            </Button>
+            <Button variant="link" asChild>
+              <Link to="/addBooks">Add Books</Link>
+            </Button>
+            <Link to={`/booksNameSearch/${text}`}>
+              <div className="form-control">
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="search"
+                    name="search"
+                    placeholder="Search"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="input input-bordered w-24 md:w-auto"
+                  />
+                </form>
+              </div>
+            </Link>
+            <div className="mx-5">
+              <h2 className="mr-5">{user.name}</h2>
+            </div>
+          </div>
+
+          <div className="md:hidden flex items-center">
+            {/* Mobile menu toggle button */}
+            <button className="text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M4 6h16M4 12h16m-7 6h7"></path>
+              </svg>
+            </button>
+          </div>
+
+          {/* Responsive mobile menu */}
+          <div className="md:hidden mt-2">
+            <div className="flex flex-col space-y-2">
+              <Button variant="link" asChild>
+                <Link to="/">Home</Link>
+              </Button>
+              <Button variant="link" asChild>
+                <Link to="/books">Books</Link>
+              </Button>
+              <Button variant="link" asChild>
+                <Link to="/addBooks">Add Books</Link>
+              </Button>
+              <Link to={`/booksNameSearch/${text}`}>
+                <div className="form-control">
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      type="search"
+                      name="search"
+                      placeholder="Search"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      className="input input-bordered w-24 md:w-auto"
+                    />
+                  </form>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          <div className="hidden md:flex ">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="outline-none">
+                <Avatar>
+                  <AvatarImage src="https://live.staticflickr.com/65535/53108000721_0fd1a3e64d_s.jpg" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer">
+                  Profile
+                </DropdownMenuItem>
+                {!user.email && (
+                  <>
+                    <Link to="/login">
+                      <DropdownMenuItem className="cursor-pointer">
+                        Login
                       </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </li>
-            </ul>
+                    </Link>
+                    <Link to="/signup">
+                      <DropdownMenuItem className="cursor-pointer">
+                        Sign up
+                      </DropdownMenuItem>
+                    </Link>
+                  </>
+                )}
+                {user.email && (
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer"
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>

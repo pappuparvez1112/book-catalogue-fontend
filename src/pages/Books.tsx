@@ -24,7 +24,7 @@ export default function Books() {
   const { data, isLoading, error } = useGetProductsQuery({ products });
   console.log(data);
 
-  // const handleClick = () => {
+  // const handleClick = () =>         {
   //   dispatch(setFilterProduct(filter));
   // };
 
@@ -49,7 +49,7 @@ export default function Books() {
   // };
 
   return (
-    <div className="grid grid-cols-8 grid-rows-3 ms-28 pt-6 relative ">
+    <div className="container md:min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 grid-rows-3 md:grid-rows-1 lg:grid-rows-3 ms-4 md:ms-28 pt-6">
       {/* <div className="col-span-2 flex">
         <Dropdown buttonText="Genre">
           <option
@@ -74,7 +74,7 @@ export default function Books() {
         </div>
       </div> */}
 
-      <div className="col-span-7 grid grid-cols-3 grid-rows-3 gap-20 pb-20">
+      <div className=" col-span-1 md:col-span-3 lg:col-span-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-3 md:grid-rows-1 lg:grid-rows-3 gap-4 md:gap-8 pb-8">
         {isLoading && <h2>...loading</h2>}
         {error && <h2>something went wrong</h2>}
         {/* {filterData

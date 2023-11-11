@@ -70,11 +70,11 @@ export default function BookReview({ id }: IProps) {
               </Avatar>
               <p>{comment}</p>
             </div>
-            <div className="flex">
+            {/* <div className="flex">
               <Button className="me-5 p-5">Edit</Button>
               <br />
               <Button>Delete</Button>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
